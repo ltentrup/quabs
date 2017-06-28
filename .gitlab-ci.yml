@@ -46,7 +46,7 @@ test-debug:
   before_script:
     - apt-get update -qq && apt-get install -y -qq python3
   script:
-    - ./test/run.py debug/caqe --execution --unittests --fuzztests
+    - ./test/run.py debug/quabs --execution --unittests --fuzztests
   dependencies:
     - debug-build
 
@@ -55,6 +55,6 @@ test-release:
   before_script:
     - apt-get update -qq && apt-get install -y -qq python3
   script:
-    - ./test/run.py release/caqe --execution --unittests --fuzztests
+    - ./test/run.py release/quabs --execution --unittests --fuzztests
   dependencies:
     - release-build
