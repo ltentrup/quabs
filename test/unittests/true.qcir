@@ -1,0 +1,4 @@
+#QCIR-G14 1
+output(1)
+1 = and()
+# r SAT

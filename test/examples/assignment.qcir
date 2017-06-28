@@ -1,0 +1,20 @@
+# This formula encodes QPARITY(n) with n=4
+# It has an exponential Q-Resolution proof
+# One needs 2^n different assignments
+# Our algorithm needs just 2 steps (for any n)
+#QCIR-G14 60
+exists(1, 2, 10, 13)
+forall(3)
+output(4)
+4 = and(5, 6)
+5 = or(3, -7)
+6 = or(-3, 7)
+7 = and(8, 9, 11, 12, 14, 15, 16, 17)
+8 = or(1, 2, 10, 13)
+9 = or(-1, -2, 10, 13)
+11 = or(-1, 2, -10, 13)
+12 = or(-1, 2, 10, -13)
+14 = or(1, -2, -10, 13)
+15 = or(1, -2, 10, -13)
+16 = or(1, 2, -10, -13)
+17 = or(-1, -2, -10, -13)

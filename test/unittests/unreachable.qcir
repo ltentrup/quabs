@@ -1,0 +1,7 @@
+#QCIR-G14 4
+forall(1)
+exists(2)
+output(3)
+3 = and(2)
+4 = or(1)
+# r SAT

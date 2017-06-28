@@ -1,0 +1,10 @@
+#QCIR-G14 7
+exists(1)
+forall(2)
+exists(3)
+output(4)
+4 = or(1, 5)
+5 = and(6, 7)
+6 = or(-1, 2)
+7 = or(3, 2)
+# r SAT

@@ -1,0 +1,11 @@
+#QCIR-G14 9
+exists(1)
+forall(2)
+exists(3, 9)
+output(7)
+7 = and(-3, 4)
+4 = or(3, 5)
+5 = and(6, 8, -9)
+6 = or(1, 2)
+8 = or(-1, 2)
+# r UNSAT

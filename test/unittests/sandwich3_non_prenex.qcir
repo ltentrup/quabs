@@ -1,0 +1,12 @@
+#r UNSAT
+#QCIR-G14 13
+output(9)
+4 = or(2, 3)
+5 = or(-2, 3)
+7 = and(4, 5, -6)
+8 = or(1, 7)
+9 = and(13)
+10 = exists(1, 6; 11)
+11 = and(-1, 8)
+12 = forall(3; 10)
+13 = exists(2; 12)

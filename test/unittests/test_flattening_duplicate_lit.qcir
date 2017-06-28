@@ -1,0 +1,8 @@
+#QCIR-G14 6
+forall(3)
+exists(1, 2)
+output(4)
+5 = or(1, 2, 3)
+4 = or(3, 5, 6)
+6 = and(-1, -2, -3)
+# r SAT

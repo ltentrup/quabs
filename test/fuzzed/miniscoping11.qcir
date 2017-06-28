@@ -1,0 +1,18 @@
+#QCIRFuzz version 0.3
+#Namespace(engine='levels', gate_ratio=0.5, level=4, max=5, min=2, num_gates=10, num_vars=10, quantifiers=3, quiet=True, seed=308769473, top_level_quantifier='exists', var_ratio=0.5)
+#r SAT
+#QCIR-G14 20
+exists(3)
+forall(1, 2, 4, 6, 7, 8, 9, 10)
+exists(5)
+output(11)
+11 = and(19)
+12 = or(17, 20, 15)
+13 = or(-6, 9, -1, -2)
+14 = or(20, 17, 15)
+15 = or(13, 16, 18)
+16 = and(-9, 2)
+17 = and(13, 18)
+18 = or(-10, 2, -4)
+19 = and(12, 14)
+20 = or(16, 18)

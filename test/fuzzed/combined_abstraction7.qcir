@@ -1,0 +1,23 @@
+#QCIRFuzz version 0.3
+#Namespace(engine='levels', gate_ratio=0.5, level=4, max=5, min=2, num_gates=15, num_vars=10, quantifiers=3, quiet=True, seed=575903534, top_level_quantifier='forall', var_ratio=0.5)
+#r UNSAT
+#QCIR-G14 25
+forall(6)
+exists(1, 5, 7, 8, 9)
+forall(2, 3, 4, 10)
+output(11)
+11 = or(16, 13)
+12 = or(-10, -4)
+13 = and(25, 23, 24)
+14 = or(5, 6, 3, 7)
+15 = and(20, 14, 17, 21)
+16 = or(24, 23, 25)
+17 = and(4, -9, 10, -7, -5)
+18 = and(21, 17, 12)
+19 = and(22, 12)
+20 = or(1, 7, 5, 10)
+21 = or(9, -2, -7)
+22 = or(2, -6, -3, -5, -4)
+23 = or(19, 18, 15)
+24 = or(18, 19)
+25 = or(15, 19, 18)

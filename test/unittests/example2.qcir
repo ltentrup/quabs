@@ -1,0 +1,7 @@
+#QCIR-G14 5
+forall(1, 2)
+exists(3)
+output(4)
+5 = or(1, 2)
+4 = and(3, 5)
+# r UNSAT

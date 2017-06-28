@@ -1,0 +1,37 @@
+add_library(quabs-base
+			aiger_helper.c
+			aiger_helper.h
+			aiger.c
+			aiger.h
+			bit_vector.c
+			bit_vector.h
+			certification.c
+			certification.h
+			circuit_abstraction.c
+			circuit_abstraction.h
+			circuit_check.c
+			circuit_check.h
+			circuit_print.c
+			circuit_print.h
+			circuit.c
+			circuit.h
+			config.h
+			getopt.c
+			getopt.h
+			logging.c
+			logging.h
+			map.c
+			map.h
+			qcir.c
+			qcir.h
+			queue.c
+			queue.h
+			semaphore.c
+			semaphore.h
+			solver.c
+			solver.h
+			statistics.c
+			statistics.h
+		   )
+
+target_link_libraries(quabs-base m)
