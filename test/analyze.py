@@ -99,6 +99,7 @@ class TestManager(object):
         self.analysis = {} # solver => result analyzer
 
     def run(self):
+        failed = False
         for solver in self.solver_configs:
             self.results[solver] = {}
             self.analysis[solver] = {}
@@ -124,3 +125,7 @@ class TestManager(object):
             print(solver)
             for method in self.methods:
                 print("  {} {}".format(method.name, self.analysis[solver][method].getAnalysis()))
+                if self.analysis[solver][method].num_failed > 0:
+                    failed = True
+        
+        return failed
