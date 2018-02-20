@@ -184,7 +184,10 @@ int main(int argc, char * const argv[]) {
     import_circuit(&data);
     
     aiger_reencode(data.target);
-    
+
+    aiger_add_comment(data.target, "Transformed to QAIGER file format (https://github.com/ltentrup/QAIGER)");
+    aiger_add_comment(data.target, "using qcir2qaiger (https://github.com/ltentrup/quabs).");
+
     aiger_write_to_file(data.target, mode, stdout);
     
     
