@@ -29,7 +29,7 @@ typedef struct {
 } aig2qcir;
 
 static void import_variables(aig2qcir* data) {
-    Scope* last_scope = NULL;
+    vector* scopes = vector_init();
     for (size_t i = 0; i < data->source->num_inputs; i++) {
         aiger_symbol input = data->source->inputs[i];
         assert(input.name != NULL);
@@ -39,14 +39,26 @@ static void import_variables(aig2qcir* data) {
         if (result != 2) {
             exit(1);
         }
-        quantifier_type type = (level % 2 == 1) ? QUANT_FORALL : QUANT_EXISTS;
-        if (last_scope == NULL) {
-            last_scope = circuit_init_scope(data->target, type);
-        } else if (last_scope->qtype != type) {
-            last_scope = circuit_init_scope(data->target, type);
+
+        while (level >= vector_count(scopes)) {
+            // level does not exist yet
+            size_t next_scope = vector_count(scopes);
+            Scope* scope;
+            if (next_scope % 2 == 0) {
+                // existential
+                scope = circuit_init_scope(data->target, QUANT_EXISTS);
+            } else {
+                // universal
+                scope = circuit_init_scope(data->target, QUANT_FORALL);
+            }
+            vector_add(scopes, scope);
         }
-        circuit_new_var(data->target, last_scope, input.lit / 2);
+
+        Scope* scope = vector_get(scopes, level);
+
+        circuit_new_var(data->target, scope, input.lit / 2);
     }
+    vector_free(scopes);
 }
 
 static lit_t aiger_lit_to_circuit_lit(unsigned aiger_lit) {
@@ -152,7 +164,7 @@ int main(int argc, char * const argv[]) {
     
     import_variables(&data);
     import_circuit(&data);
-    
+
     circuit_reencode(data.target);
     circuit_preprocess(data.target);
     

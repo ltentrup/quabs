@@ -21,9 +21,10 @@
 
 static void print_usage(const char* name) {
     printf("usage: %s [-h] file\n\n"
+           "Translates QBF instances in QCIR format to QAIGER.\n\n"
            "optional arguments:\n"
-           "  -a, --aag\toutput in ASCII AIGER format"
-           "  -h, --help\t show this help message and exit\n", name);
+           "  --aig\t\toutput in binary QAIGER format\n"
+           "  -h, --help\tshow this help message and exit\n", name);
 }
 
 typedef struct {
@@ -41,14 +42,16 @@ static unsigned new_aiger_lit(qcir2aig* data) {
 
 static void import_variables(qcir2aig* data) {
     char encoding[CHAR_BUFFER_SIZE];
+    int level = (data->circuit->top_level->qtype == QUANT_EXISTS) ? 0 : 1;
     for (Scope* scope = data->circuit->top_level; scope != NULL; scope = circuit_next_scope_in_prefix(scope)) {
         for (size_t j = 0; j < vector_count(scope->vars); j++) {
             Var* var = vector_get(scope->vars, j);
-            snprintf(encoding, CHAR_BUFFER_SIZE, "%d %d", scope->qtype, var->shared.orig_id);
+            snprintf(encoding, CHAR_BUFFER_SIZE, "%d %d", level, var->shared.orig_id);
             unsigned aiger_lit = new_aiger_lit(data);
             aiger_add_input(data->target, aiger_lit, encoding);
             map_add(data->lit2lit, var->shared.id, (void*)(uintptr_t)aiger_lit);
         }
+        level++;
     }
 }
 
@@ -90,7 +93,7 @@ static void import_circuit(qcir2aig* data) {
 int main(int argc, char * const argv[]) {
     const char *file_name = NULL;
     FILE* file = NULL;
-    aiger_mode mode = aiger_binary_mode;
+    aiger_mode mode = aiger_ascii_mode;
     
     // Handling of command line arguments
     int current_pos;
@@ -112,19 +115,14 @@ int main(int argc, char * const argv[]) {
                 print_usage(argv[0]);
                 return 0;
             
-            case 'a':
-                // print in ascii aiger format
-                mode = aiger_ascii_mode;
-                break;
-            
             case '-':
                 // long options
                 if (strncmp(argv[current_pos], "--help", 6) == 0) {
                     print_usage(argv[0]);
                     return 0;
-                } else if (strncmp(argv[current_pos], "--aag", 5) == 0) {
+                } else if (strncmp(argv[current_pos], "--aig", 5) == 0) {
                     // print in ascii aiger format
-                    mode = aiger_ascii_mode;
+                    mode = aiger_binary_mode;
                 } else {
                     logging_error("unknown argument %s\n", argv[current_pos]);
                     print_usage(argv[0]);
@@ -174,7 +172,7 @@ int main(int argc, char * const argv[]) {
     }
     
     if (!circuit_is_prenex(data.circuit)) {
-        logging_error("QCIR is non-prenex, hence, cannot be transformed to AIGER\n");
+        logging_error("QCIR is non-prenex, hence, cannot be transformed to QAIGER\n");
         return 1;
     }
     

@@ -26,3 +26,11 @@ target_link_libraries(quabs solve)
 #target_link_libraries(quabs sat_lingeling)
 #target_link_libraries(quabs sat_glucose)
 target_link_libraries(quabs sat_cryptominisat)
+
+add_executable(qcir2qaiger src/qcir2aig.c)
+target_link_libraries(qcir2qaiger quabs-base)
+target_link_libraries(qcir2qaiger solve)
+
+add_executable(qaiger2qcir src/aig2qcir.c)
+target_link_libraries(qaiger2qcir quabs-base)
+target_link_libraries(qaiger2qcir solve)
