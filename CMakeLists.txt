@@ -34,3 +34,7 @@ target_link_libraries(qcir2qaiger solve)
 add_executable(qaiger2qcir src/aig2qcir.c)
 target_link_libraries(qaiger2qcir quabs-base)
 target_link_libraries(qaiger2qcir solve)
+
+add_executable(qcir2qdimacs src/qcir2qdimacs.c)
+target_link_libraries(qcir2qdimacs quabs-base)
+target_link_libraries(qcir2qdimacs solve)
