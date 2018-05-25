@@ -25,6 +25,7 @@ void print_usage(const char* name) {
 int main(int argc, char * const argv[]) {
     const char *file_name = NULL;
     FILE* file = NULL;
+    bool preprocess = false;
     
     // Handling of command line arguments
     opterr = 0; // Disable error messages as we handle them ourself
@@ -34,6 +35,9 @@ int main(int argc, char * const argv[]) {
             GETOPT_OPT("-h"):
             print_usage(argv[0]);
             return 1;
+            break;
+            GETOPT_OPT("-p"):
+            preprocess = true;
             break;
         GETOPT_MISSING_ARG:
             printf("missing argument to %s\n", ch);
@@ -69,6 +73,10 @@ int main(int argc, char * const argv[]) {
     }
     if (error) {
         return 1;
+    }
+    if (preprocess) {
+        circuit_reencode(circuit);
+        circuit_preprocess(circuit);
     }
     
     circuit_print_qdimacs(circuit);

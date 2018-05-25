@@ -184,7 +184,18 @@ void circuit_print_dot(Circuit* circuit) {
 void circuit_print_qdimacs(Circuit* circuit) {
     // Header
     //printf("c Created with CAQE\n");
-    printf("p cnf %zu %lu\n", circuit->max_num, circuit->max_num * 3 + 1);
+    
+    size_t num_clauses = 1;  // circuit output
+    for (size_t i = 1; i <= circuit->max_num; i++) {
+        assert(circuit->nodes[i] != NULL);
+        if (circuit->types[i] != NODE_GATE) {
+            continue;
+        }
+        Gate* gate = circuit->nodes[i];
+        num_clauses += gate->num_inputs + 1;
+    }
+    
+    printf("p cnf %zu %lu\n", circuit->max_num, num_clauses);
     
     // Scopes
     for (Scope* scope = circuit->top_level; scope != NULL; scope = circuit_next_scope_in_prefix(scope)) {
