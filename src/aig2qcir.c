@@ -34,9 +34,8 @@ static void import_variables(aig2qcir* data) {
         aiger_symbol input = data->source->inputs[i];
         assert(input.name != NULL);
         int level;
-        int orig_var_id;
-        int result = sscanf(input.name, "%d %d", &level, &orig_var_id);
-        if (result != 2) {
+        int result = sscanf(input.name, "%d ", &level);
+        if (result != 1) {
             exit(1);
         }
 
